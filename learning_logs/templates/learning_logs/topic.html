@@ -1,0 +1,21 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+<h2>
+    Topic: {{ topic }}
+</h2>
+
+<ul>
+    {% for entry in entries %}
+        <li>
+            <h4>{{ entry.text|linebreaks }}</h4>
+            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+        </li>
+        <hr>
+    {% empty %}
+        <li>You can add whatever you learned about {{ topic }}.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
