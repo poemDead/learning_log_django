@@ -18,4 +18,9 @@
     {% endfor %}
 </ul>
 
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">
+        Add a new Entry
+    </a>
+</p>
 {% endblock content %}

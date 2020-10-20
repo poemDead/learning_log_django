@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from .models import Topic
-from .forms import TopicForm
+from .forms import TopicForm, EnrtyFrom
 
 # Create your views here.
 def index(request):
@@ -31,3 +31,22 @@ def new_topic(request):
     #如果没有post请求，就显示空表单
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
+
+def new_entry(request, topic_id):
+    """添加新条目"""
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method != 'POST':
+        # create a new form
+        form = EnrtyFrom()
+    else:
+        # 如果是post请求，就提交表单处理数据，跳回topics界面
+        form = EnrtyFrom(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic
+            new_entry.save()
+            return redirect('learning_logs:topic', topic_id=topic_id)
+    #如果没有post请求，就显示空表单
+    context = {'topic': topic, 'form': form}
+    return render(request, 'learning_logs/new_entry.html', context)
