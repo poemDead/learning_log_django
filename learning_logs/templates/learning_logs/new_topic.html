@@ -1,15 +1,20 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2>
+    添加一个新的学习主题
+</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-<h2>
-    Add a new Learning Topic:
-</h2>
-
-<form action="{% url 'learning_logs:new_topic' %}" method="POST">
+<form action="{% url 'learning_logs:new_topic' %}" method="POST" class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Add Topic</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button class="btn btn-primary" name="submit">确认添加主题</button>
+    {% endbuttons %}
 </form>
 
 {% endblock content %}

@@ -1,12 +1,20 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2>
+    注册属于你的账号，开始一次学习的新旅程。
+</h2>
+{% endblock page_header %}
 
 {% block content%}
 
-    <form method="POST" action="{% url 'users:register' %}">
+    <form method="POST" action="{% url 'users:register' %}" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-
-        <button name="submit">注册</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button class="btn btn-primary" name="submit">注册</button>
+        {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
     </form>
 

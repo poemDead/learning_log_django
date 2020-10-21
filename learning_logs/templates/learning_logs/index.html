@@ -1,23 +1,39 @@
 {% extends "learning_logs/base.html" %}
 
+{% block page_header %}
+<div class="jumbotron">
+    <h1 class="display-3">
+        记录你的学习。
+    </h1>
+
+    <p class="lead">
+        找到感兴趣的主题，与志同道合的人分享你的学习笔记和心得。没有你感兴趣的也没关系，添加你自己感兴趣的主题并从零开始吧。
+    </p>
+
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register'%}">
+        注册 &raquo;
+    </a>
+</div>
+{% endblock page_header %}
+
 {% block content %}
 
-<h2>
-    Topics
-</h2>
+<h1>
+    主题：
+</h1>
 
 <ul>
     {% for topic in topics %}
-        <li>
+        <li><h3>
             <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-        </li>
+        </h3></li>
     {% empty %}
-        <li>You can add whatever topic you want.</li>
+        <li><h3>现在还没有学习主题，请添加任何您感兴趣的主题并开始学习之旅</h3></li>
     {% endfor %}
 </ul>
-
-<a href="{% url 'learning_logs:new_topic' %}">
-    Add a new Topic
-</a>
+<hr>
+<h3><a class="btn btn-primary" href="{% url 'learning_logs:new_topic' %}">
+    添加一个新主题
+</a></h3>
 
 {% endblock content %}

@@ -1,29 +1,29 @@
 {% extends "learning_logs/base.html" %}
 
+{% block page_header %}
+<h1>
+    当前主题: {{ topic }}
+    <a class="btn btn-primary" href="{% url 'learning_logs:new_entry' topic.id %}">
+        添加新笔记
+    </a>
+</h1>
+{% endblock page_header %}
+
+
 {% block content %}
 
-<h2>
-    Topic: {{ topic }}
-</h2>
-
-<ul>
     {% for entry in entries %}
-        <li>
-            <h4>{{ entry.text|linebreaks }}</h4>
-            <p>Creat by {{ entry.owner}} - {{ entry.date_added|date:'M d, Y H:i' }}</p>
-            <p>
-                <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a>
-            </p>
-        </li>
-        <hr>
+        <div class='card mb-3'>
+            <h4 class="card-body">{{ entry.text|linebreaks }}</h4>
+            <div class="card-footer text-muted">
+                <span>
+                    <a class="btn btn-primary" href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a>
+                </span>
+                <span>Creat by {{ entry.owner}} - {{ entry.date_added|date:'M d, Y H:i' }}</span>
+            </div>
+        </div>
     {% empty %}
-        <li>You can add whatever you learned about {{ topic }}.</li>
+        <h2>You can add whatever you learned about {{ topic }}.</h2>
     {% endfor %}
-</ul>
 
-<p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}">
-        Add a new Entry
-    </a>
-</p>
 {% endblock content %}

@@ -1,20 +1,22 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2>
+    在<a href="{% url 'learning_logs:topic' topic.id %}">
+        {{ topic }}
+    </a>中添加一个新的学习条目
+</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-<h2>
-    <a href="{% url 'learning_logs:topic' topic.id %}">
-        {{ topic }}
-    </a>
-</h2>
-<p>
-    Add a new entry to this topic:
-</p>
-
-<form action="{% url 'learning_logs:new_entry' topic.id %}" method="POST">
+<form action="{% url 'learning_logs:new_entry' topic.id %}" method="POST" class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Add Entry</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button class="btn btn-primary" name="submit">添加此条目</button>
+    {% endbuttons %}
 </form>
 
 {% endblock content %}

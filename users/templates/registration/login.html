@@ -1,16 +1,20 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2>
+    登陆进入你的账号添加和编辑新条目吧。
+</h2>
+{% endblock page_header %}
 
 {% block content%}
 
-    {% if form.errors %}
-        <p>账号或密码错误，请重新尝试</p>
-    {% endif %}
-
-    <form method="POST" action="{% url 'users:login' %}">
+    <form method="POST" action="{% url 'users:login' %}" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-
-        <button name="submit">登陆</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button class="btn btn-primary" name="submit">登陆</button>
+        {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
     </form>
 
