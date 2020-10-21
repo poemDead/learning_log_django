@@ -1,2 +1,11 @@
-# learning_log_django
- Web Project from PythonCrashCourse
+# 使用Django做的学习笔记小项目
+
+已经安装教科书的指引完成了开发并且部署在了Heroku上面。
+[Learning Log - 学习笔记](https://stark-coast-79831.herokuapp.com/)
+
+有一些和教科书不一样的设计：
+1. 学习主题不属于个人用户，网站的首页和主题及笔记都为公开形式
+2. 用户只能编辑属于自己的笔记，但可以查看他人的笔记，共同学习
+3. 编辑，注册，登陆等按钮套上bootstrap更好看一些
+
+还有很多小的问题值得修复，并且可以添加一些新的功能，希望自己在后面的学习中也可以抽出时间来修缮一下这个小小的web程序。
