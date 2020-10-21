@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from .models import Topic, Entry
 from .forms import TopicForm, EnrtyFrom
@@ -17,6 +19,7 @@ def topic(request,topic_id):
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
 
+@login_required
 def new_topic(request):
     """添加新主题"""
     if request.method != 'POST':
@@ -32,6 +35,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+@login_required
 def new_entry(request, topic_id):
     """添加新条目"""
     topic = Topic.objects.get(id=topic_id)
@@ -45,16 +49,20 @@ def new_entry(request, topic_id):
         if form.is_valid():
             new_entry = form.save(commit=False)
             new_entry.topic = topic
+            new_entry.owner = request.user
             new_entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
     #如果没有post请求，就显示空表单
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id):
     """编辑已有条目"""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    if entry.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         form = EnrtyFrom(instance=entry)
