@@ -1,7 +1,9 @@
 # 使用Django做的学习笔记小项目
 
 已经安装教科书的指引完成了开发并且部署在了Heroku上面。
-[Learning Log - 学习笔记](https://stark-coast-79831.herokuapp.com/)
+
+## 欢迎点击查看
+**[Learning Log - 学习笔记](https://stark-coast-79831.herokuapp.com/)**
 
 有一些和教科书不一样的设计：
 1. 学习主题不属于个人用户，网站的首页和主题及笔记都为公开形式
