@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Topic
+from .models import Topic, Entry
 from .forms import TopicForm, EnrtyFrom
 
 # Create your views here.
@@ -50,3 +50,19 @@ def new_entry(request, topic_id):
     #如果没有post请求，就显示空表单
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
+
+def edit_entry(request, entry_id):
+    """编辑已有条目"""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    if request.method != 'POST':
+        form = EnrtyFrom(instance=entry)
+    else:
+        form = EnrtyFrom(instance=entry,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_id = topic.id)
+    
+    context = {'entry': entry, 'topic': topic, 'form': form}
+    return render(request, 'learning_logs/edit_entry.html', context)
