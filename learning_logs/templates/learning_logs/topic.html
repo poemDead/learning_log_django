@@ -17,13 +17,13 @@
             <h4 class="card-body">{{ entry.text|linebreaks }}</h4>
             <div class="card-footer text-muted">
                 <span>
-                    <a class="btn btn-primary" href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a>
+                    <a class="btn btn-primary" href="{% url 'learning_logs:edit_entry' entry.id %}">编辑笔记</a>
                 </span>
                 <span>Creat by {{ entry.owner}} - {{ entry.date_added|date:'M d, Y H:i' }}</span>
             </div>
         </div>
     {% empty %}
-        <h2>You can add whatever you learned about {{ topic }}.</h2>
+        <h2>可以添加任何有关{{ topic }}的学习笔记在这里。</h2>
     {% endfor %}
 
 {% endblock content %}

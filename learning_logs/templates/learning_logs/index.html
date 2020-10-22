@@ -9,10 +9,13 @@
     <p class="lead">
         找到感兴趣的主题，与志同道合的人分享你的学习笔记和心得。没有你感兴趣的也没关系，添加你自己感兴趣的主题并从零开始吧。
     </p>
-
+    {% if user.is_authenticated %}
+    <h3>欢迎回来, {{ user.username }}.</h3>
+    {% else %}
     <a class="btn btn-lg btn-primary" href="{% url 'users:register'%}">
         注册 &raquo;
     </a>
+    {% endif %}
 </div>
 {% endblock page_header %}
 
